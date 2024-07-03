@@ -42,7 +42,7 @@ export class UserController {
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    try {;
+    try {
       const user = req.body;
       const newUser = await this.userService.createUser(user);
       res.success(newUser);
