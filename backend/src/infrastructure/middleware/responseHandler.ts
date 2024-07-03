@@ -19,6 +19,11 @@ export const responseHandler = (
       data: data,
       isOk: true,
     });
+    if (statusCode === 204) {
+      statusCode = 200;
+    }
+    console.log(statusCode);
+    
     res.status(statusCode).json(responseBody);
   };
 

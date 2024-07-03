@@ -2,6 +2,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../../application/services/UserService";
 import createError from "http-errors";
+import { StatusCodes } from "http-status-codes";
 
 export class UserController {
   constructor(private userService: UserService) {}
@@ -16,7 +17,7 @@ export class UserController {
       res.success({
         data: users,
         message: "Users found",
-        statusCode: 200,
+        statusCode: StatusCodes.OK,
       });
     } catch (error) {
       next(error);
@@ -35,7 +36,7 @@ export class UserController {
         res.success({
           data: user,
           message: "User found",
-          statusCode: 200,
+          statusCode: StatusCodes.OK,
         });
       } else {
         throw new createError.NotFound("User not found");
@@ -56,7 +57,7 @@ export class UserController {
       res.success({
         data: newUser,
         message: "User created",
-        statusCode: 201,
+        statusCode: StatusCodes.CREATED,
       });
     } catch (error) {
       next(error);
@@ -76,7 +77,7 @@ export class UserController {
         res.success({
           data: updatedUser,
           message: "User updated",
-          statusCode: 200,
+          statusCode: StatusCodes.OK,
         });
       } else {
         throw new createError.NotFound("User not found");
@@ -96,7 +97,7 @@ export class UserController {
       await this.userService.deleteUser(id);
       res.success({
         message: "User deleted",
-        statusCode: 200,
+        statusCode: StatusCodes.NO_CONTENT,
       });
     } catch (error) {
       next(error);
