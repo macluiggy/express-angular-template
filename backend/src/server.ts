@@ -6,8 +6,20 @@ import userRoutes from "./infrastructure/routes/UserRoutes";
 import authRoutes from "./infrastructure/routes/AuthRoutes";
 import { errorHandler } from "./infrastructure/middleware/errorHandler";
 import { responseHandler } from "./infrastructure/middleware/responseHandler";
+import cors from "cors";
 
 const app = express();
+app.use(
+  cors({
+    origin: [
+      "http://localhost:8080",
+      "http://localhost:8081",
+      // angular app
+      "http://localhost:4200",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(responseHandler);
 AppDataSource.initialize()
