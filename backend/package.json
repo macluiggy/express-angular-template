@@ -3,9 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start:dev": "bun src/main.ts",
-    "build": "tsc src/main.ts",
-    "start": "bun dist/main.js",
+    "start:dev": "npx bun --watch src/main.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm -- migration:generate ./src/infrastructure/database/migrations/$npm_config_name -d ./src/infrastructure/database/data-source.ts",
     "migration:run": "npm run typeorm migration:run -d ./src/infrastructure/database/data-source.ts",
