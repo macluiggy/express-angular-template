@@ -1,0 +1,25 @@
+export default class HttpResponse {
+  statusCode: number;
+  message: string;
+  data: any;
+  /**
+   * Whether the request was successful or not
+   */
+  isOk: boolean;
+  constructor({
+    statusCode,
+    message,
+    data,
+    isOk = true,
+  }: {
+    statusCode: number;
+    message: string;
+    data: any;
+    isOk?: boolean;
+  }) {
+    this.statusCode = statusCode;
+    this.message = message;
+    this.data = data;
+    this.isOk = isOk;
+  }
+}
