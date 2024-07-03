@@ -39,9 +39,8 @@ export class AuthService implements IAuthService {
       throw new createHttpError.Unauthorized('Invalid password');
     }
 
-    const accesToken = this.generateToken(user);
-    const result = { user,  accesToken };
-    console.log(result);
+    const accessToken = this.generateToken(user);
+    const result = { user,  accessToken };
     
     return result;
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../services/storage/storage.service';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,9 +12,21 @@ import { StorageService } from '../services/storage/storage.service';
 export class ProfileComponent implements OnInit {
   currentUser: any;
 
-  constructor(private storageService: StorageService) {}
+  constructor(
+    private storageService: StorageService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.currentUser = this.storageService.getUser();
+
+    this.userService.getUserByUserId(this.currentUser.id).subscribe({
+      next: (response: any) => {
+        this.currentUser = response.data;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 }
