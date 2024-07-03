@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { UserService } from './UserService';
 import createHttpError from 'http-errors';
+import envVariables from '../../config/envVariables';
 
 export class AuthService implements IAuthService {
   constructor( private userService: UserService) {}
@@ -47,6 +48,6 @@ export class AuthService implements IAuthService {
 
   private generateToken(user: any): string {
     const payload = { id: user.id, email: user.email };
-    return jwt.sign(payload, 'secretKey', { expiresIn: '1h' });
+    return jwt.sign(payload, envVariables.jwtSecret, { expiresIn: '1h' });
   }
 }

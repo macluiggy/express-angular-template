@@ -7,6 +7,7 @@ import authRoutes from "./infrastructure/routes/AuthRoutes";
 import { errorHandler } from "./infrastructure/middleware/errorHandler";
 import { responseHandler } from "./infrastructure/middleware/responseHandler";
 import cors from "cors";
+import passport from "passport";
 
 const app = express();
 app.use(
@@ -22,6 +23,7 @@ app.use(
 );
 app.use(express.json());
 app.use(responseHandler);
+app.use(passport.initialize());
 AppDataSource.initialize()
   .then(() => {
     // add a health check route
