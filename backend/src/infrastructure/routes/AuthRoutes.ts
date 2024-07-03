@@ -15,6 +15,8 @@ router.use('/auth', router);
 
 router.post('/signup', (req: Request, res: Response, next: NextFunction) => authController.signUp(req, res, next));
 router.post('/signin', (req: Request, res: Response, next: NextFunction) => authController.login(req, res, next));
+// for logout
+router.post('/logout', (req: Request, res: Response, next: NextFunction) => authController.logout(req, res, next));
 
 export default router;
  

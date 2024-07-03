@@ -30,4 +30,14 @@ export class AuthController {
       next(error);
     }
   }
+
+  async logout(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      res.success({
+        message: "User logged out successfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
