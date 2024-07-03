@@ -8,7 +8,6 @@ import { StorageService } from '../storage/storage.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const storageService = inject(StorageService);
   const authToken = storageService.getToken();
-  console.log('authToken', authToken);
   
 
   const toarstrService = inject(ToastrService);
