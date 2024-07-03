@@ -3,13 +3,14 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "migration:generate": "npm run typeorm migration:generate -- -d ./src/infrastructure/database/data-source.ts -n",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "npm run typeorm -- migration:generate ./src/infrastructure/database/migrations/$npm_config_name -d ./src/infrastructure/database/data-source.ts",
     "migration:run": "npm run typeorm migration:run -d ./src/infrastructure/database/data-source.ts",
     "migration:revert": "npm run typeorm migration:revert -d ./src/infrastructure/database/data-source.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "ts-node-dev": "^2.0.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
