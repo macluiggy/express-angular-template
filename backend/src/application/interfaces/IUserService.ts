@@ -1,0 +1,10 @@
+// src/application/interfaces/IUserService.ts
+import { UserEntity } from '../../domain/entities/User';
+
+export interface IUserService {
+  getUsers(): Promise<UserEntity[]>;
+  getUserById(id: number): Promise<UserEntity | null>;
+  createUser(user: UserEntity): Promise<UserEntity>;
+  updateUser(id: number, user: UserEntity): Promise<UserEntity | null>;
+  deleteUser(id: number): Promise<void>;
+}
