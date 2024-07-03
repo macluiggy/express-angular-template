@@ -10,13 +10,11 @@ import envVariables from "../../config/envVariables";
 
 const opts: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: envVariables.jwtSecret, 
+  secretOrKey: envVariables.jwtSecret,
 };
 
 passport.use(
   new JwtStrategy(opts, async (jwt_payload, done) => {
-    console.log("jwt_payload", jwt_payload);
-    
     try {
       // const userRepository = new UserRepository();
       // const user = await userRepository.getUserById(jwt_payload.id);
