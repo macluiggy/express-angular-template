@@ -1,15 +1,12 @@
 // src/infrastructure/database/data-source.ts
 import { DataSource } from 'typeorm';
 import { UserEntity } from '../../domain/entities/User';
+import envVariables from '../../config/envVariables';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'yourusername',
-  password: 'yourpassword',
-  database: 'yourdatabase',
-  synchronize: false, // Debes tener esto en false en producción
+  url: envVariables.db.databaseUrl,
+  synchronize: true,
   logging: false,
   entities: [UserEntity],
   migrations: ['src/infrastructure/database/migrations/*.ts'],
