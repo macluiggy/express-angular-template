@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start:dev": "tsx src/main.ts",
+    "start": "tsx --watch src/main.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm -- migration:generate ./src/infrastructure/database/migrations/$npm_config_name -d ./src/infrastructure/database/data-source.ts",
     "migration:run": "npm run typeorm migration:run -d ./src/infrastructure/database/data-source.ts",

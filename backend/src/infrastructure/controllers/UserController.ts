@@ -13,7 +13,11 @@ export class UserController {
   ): Promise<void> {
     try {
       const users = await this.userService.getUsers();
-      res.success(users);
+      res.success({
+        data: users,
+        message: "Users found",
+        statusCode: 200,
+      });
     } catch (error) {
       next(error);
     }
@@ -28,7 +32,11 @@ export class UserController {
       const id = parseInt(req.params.id, 10);
       const user = await this.userService.getUserById(id);
       if (user) {
-        res.success(user);
+        res.success({
+          data: user,
+          message: "User found",
+          statusCode: 200,
+        });
       } else {
         throw new createError.NotFound("User not found");
       }
@@ -45,7 +53,11 @@ export class UserController {
     try {
       const user = req.body;
       const newUser = await this.userService.createUser(user);
-      res.success(newUser);
+      res.success({
+        data: newUser,
+        message: "User created",
+        statusCode: 201,
+      });
     } catch (error) {
       next(error);
     }
@@ -61,9 +73,13 @@ export class UserController {
       const user = req.body;
       const updatedUser = await this.userService.updateUser(id, user);
       if (updatedUser) {
-        res.success(updatedUser);
+        res.success({
+          data: updatedUser,
+          message: "User updated",
+          statusCode: 200,
+        });
       } else {
-        res.error({ statusCode: 404, message: "User not found" });
+        throw new createError.NotFound("User not found");
       }
     } catch (error) {
       next(error);
@@ -78,7 +94,10 @@ export class UserController {
     try {
       const id = parseInt(req.params.id, 10);
       await this.userService.deleteUser(id);
-      res.success({ message: "User deleted successfully" });
+      res.success({
+        message: "User deleted",
+        statusCode: 200,
+      });
     } catch (error) {
       next(error);
     }

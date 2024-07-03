@@ -20,9 +20,9 @@ export default class HttpResponse {
     data: any;
     isOk?: boolean;
   }) {
+    this.isOk = isOk;
     this.statusCode = statusCode;
     this.message = message;
     this.data = data;
-    this.isOk = isOk;
   }
 }

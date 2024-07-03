@@ -1,11 +1,11 @@
 meta {
-  name: create user
+  name: update user
   type: http
-  seq: 2
+  seq: 4
 }
 
-post {
-  url: {{base_url}}/users
+get {
+  url: {{base_url}}/users/62
   body: json
   auth: none
 }

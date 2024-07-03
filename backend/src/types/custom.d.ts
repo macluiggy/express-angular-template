@@ -1,9 +1,13 @@
 // src/types/custom.d.ts
-import 'express';
+import "express";
 
-declare module 'express' {
+export type SuccessParams = {
+  data?: any;
+  statusCode?: number;
+  message?: string;
+};
+declare module "express" {
   export interface Response {
-    success?: (data: any) => void;
-    error?: (error: any) => void;
+    success?: ({ data, statusCode, message }: SuccessParams) => void;
   }
 }
