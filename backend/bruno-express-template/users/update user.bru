@@ -4,18 +4,15 @@ meta {
   seq: 4
 }
 
-get {
-  url: {{base_url}}/users/62
+put {
+  url: {{base_url}}/users/64
   body: json
   auth: none
 }
 
 body:json {
   {
-    "username": "bruno",
-    "firstName": "bruno",
-    "lastName": "bruno",
-    "email": "bruno@mail.com",
-    "password": "123456"
+    "username": "bruno updated",
+    "firstName": "bruno"
   }
 }

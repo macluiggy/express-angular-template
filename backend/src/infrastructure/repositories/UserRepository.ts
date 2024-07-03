@@ -1,7 +1,7 @@
 // src/infrastructure/repositories/UserRepository.ts
-import { Repository } from 'typeorm';
-import { AppDataSource } from '../database/data-source';
-import { UserEntity } from '../../domain/entities/User';
+import { Repository } from "typeorm";
+import { AppDataSource } from "../database/data-source";
+import { UserEntity } from "../../domain/entities/User";
 
 export class UserRepository {
   private userRepository: Repository<UserEntity>;
@@ -29,5 +29,13 @@ export class UserRepository {
 
   async delete(id: number): Promise<void> {
     await this.userRepository.delete(id);
+  }
+
+  async findByEmail(email: string): Promise<UserEntity | null> {
+    return this.userRepository.findOne({
+      where: {
+        email,
+      },
+    });
   }
 }

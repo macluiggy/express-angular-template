@@ -15,20 +15,20 @@ import * as bcrypt from "bcrypt";
 })
 export class UserEntity {
   @PrimaryGeneratedColumn("increment")
-  id: number;
+  id?: number;
 
   @Column({ name: "username", type: "varchar", length: 50, unique: true })
-  username: string;
+  username?: string;
 
   @Column({ name: "first_name", type: "varchar", length: 100 })
-  firstName: string;
+  firstName?: string;
 
   @Column({ name: "last_name", type: "varchar", length: 100, nullable: true })
-  lastName: string;
+  lastName?: string;
 
-  fullName: string;
+  fullName?: string;
   @AfterLoad()
-  async setFullName() {
+  async setFullName?() {
     if (this.firstName && this.lastName) {
       this.fullName = `${this.firstName} ${this.lastName}`;
     } else {
@@ -48,39 +48,39 @@ export class UserEntity {
   password: string;
 
   @Column({ name: "is_password_reset", type: "boolean", default: false })
-  isPasswordReset: boolean;
+  isPasswordReset?: boolean;
 
   @Column({ name: "signature", type: "varchar", length: 255, nullable: true })
-  signature: string;
+  signature?: string;
 
   @Column({ name: "is_active", type: "boolean", default: true })
-  isActive: boolean;
+  isActive?: boolean;
 
   @Column({ name: "role", type: "varchar", length: 50, default: "user" })
-  role: string;
+  role?: string;
 
   @Column({ name: "phone", type: "varchar", length: 100, default: "" })
-  phone: string;
+  phone?: string;
 
   @CreateDateColumn({
     name: "created_at",
     default: () => "CURRENT_TIMESTAMP",
   })
-  createdAt: Date;
+  createdAt?: Date;
 
   @UpdateDateColumn({
     name: "updated_at",
     nullable: false,
     default: () => "CURRENT_TIMESTAMP",
   })
-  updatedAt: Date;
+  updatedAt?: Date;
 
   @DeleteDateColumn({
     name: "deleted_at",
     nullable: true,
     default: null,
   })
-  deletedAt: Date;
+  deletedAt?: Date;
 
   @Column({
     name: "profile_image_key",
@@ -88,12 +88,12 @@ export class UserEntity {
     length: 255,
     nullable: true,
   })
-  profileImageKey: string;
+  profileImageKey?: string;
 
-  profileImageUrl: string;
+  profileImageUrl?: string;
 
   @BeforeInsert()
-  async checkData() {
+  async checkData?() {
     const salt = await bcrypt.genSalt(10);
     if (this.password) {
       this.password = await bcrypt.hash(this.password, salt);
