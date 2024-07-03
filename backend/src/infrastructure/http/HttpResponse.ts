@@ -1,3 +1,6 @@
+/**
+ * Represents the response of an HTTP request either successful or not
+ */
 export default class HttpResponse {
   statusCode: number;
   message: string;

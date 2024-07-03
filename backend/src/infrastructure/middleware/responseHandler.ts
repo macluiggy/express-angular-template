@@ -21,16 +21,5 @@ export const responseHandler = (
     res.status(statusCode).json(responseBody);
   };
 
-  res.error = (error: any) => {
-    const statusCode = error.statusCode || 500;
-    const responseBody = new HttpResponse({
-      statusCode: statusCode,
-      message: error.message,
-      data: null,
-      isOk: false,
-    });
-    res.status(statusCode).json(responseBody);
-  };
-
   next();
 };

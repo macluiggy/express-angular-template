@@ -1,9 +1,9 @@
 // src/infrastructure/controllers/UserController.ts
 import { Request, Response, NextFunction } from "express";
-import { IUserService } from "../../application/interfaces/IUserService";
+import { UserService } from "../../application/services/UserService";
 
 export class UserController {
-  constructor(private userService: IUserService) {}
+  constructor(private userService: UserService) {}
 
   async getUsers(
     req: Request,
@@ -46,7 +46,7 @@ export class UserController {
       const newUser = await this.userService.createUser(user);
       res.success(newUser);
     } catch (error) {
-      res.error(error);
+      next(error);
     }
   }
 
