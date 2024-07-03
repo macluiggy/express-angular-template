@@ -1,6 +1,7 @@
 // src/infrastructure/controllers/UserController.ts
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../../application/services/UserService";
+import createError from "http-errors";
 
 export class UserController {
   constructor(private userService: UserService) {}
@@ -29,7 +30,7 @@ export class UserController {
       if (user) {
         res.success(user);
       } else {
-        res.error({ statusCode: 404, message: "User not found" });
+        throw new createError.NotFound("User not found");
       }
     } catch (error) {
       next(error);
@@ -41,7 +42,7 @@ export class UserController {
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    try {
+    try {;
       const user = req.body;
       const newUser = await this.userService.createUser(user);
       res.success(newUser);
