@@ -3,6 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
+    "start:dev": "bun src/main.ts",
+    "build": "tsc src/main.ts",
+    "start": "node dist/src/main.js",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm -- migration:generate ./src/infrastructure/database/migrations/$npm_config_name -d ./src/infrastructure/database/data-source.ts",
     "migration:run": "npm run typeorm migration:run -d ./src/infrastructure/database/data-source.ts",
@@ -19,11 +22,13 @@
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "bcrypt": "^5.1.1",
+    "bun": "^1.1.17",
     "dotenv": "^16.4.5",
     "dotnet": "^1.1.4",
     "express": "^4.19.2",
     "http-errors": "^2.0.0",
     "pg": "^8.12.0",
+    "ts-node": "^10.9.2",
     "typeorm": "^0.3.20"
   }
 }
