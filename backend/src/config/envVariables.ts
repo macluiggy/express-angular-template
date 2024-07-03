@@ -14,7 +14,7 @@ const envVariables = {
     databaseUrl,
   },
   port: process.env.PORT || 3000,
-  jwtSecret: process.env.JWT_SECRET
+  jwtSecret: process.env.JWT_SECRET || 'yourjwtsupersecret',
 };
 
 export default envVariables;
