@@ -3,6 +3,7 @@ import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validate, ValidationError } from "class-validator";
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import HttpResponse from "../http/HttpResponse";
+import { StatusCodes } from "http-status-codes";
 
 export function validationMiddleware<T>(
   type: ClassConstructor<T>
@@ -15,7 +16,7 @@ export function validationMiddleware<T>(
           .map((error: ValidationError) => Object.values(error.constraints!))
           .flat()
           .join(", ");
-        const statusCode = 400;
+        const statusCode = StatusCodes.BAD_REQUEST;
         const responseBody = new HttpResponse({
           statusCode: statusCode,
           message,
