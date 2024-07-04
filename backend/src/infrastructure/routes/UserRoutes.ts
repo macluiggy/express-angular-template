@@ -4,6 +4,8 @@ import { UserRepository } from "../repositories/UserRepository";
 import { UserService } from "../../application/services/UserService";
 import { UserController } from "../controllers/UserController";
 import passport from "../middleware/passport";
+import { validationMiddleware } from "../middleware/validationMiddleware";
+import { CreateUserDto } from "../../application/dtos/user/CreateUserDto";
 
 const router = Router();
 
@@ -21,7 +23,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res, next) => userController.getUserById(req, res, next)
 );
-router.post("/users", (req, res, next) =>
+router.post("/users", validationMiddleware(CreateUserDto), (req, res, next) =>
   userController.createUser(req, res, next)
 );
 router.put("/users/:id", (req, res, next) =>
