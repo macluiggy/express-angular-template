@@ -7,4 +7,5 @@ export interface IUserService {
   createUser(user: UserEntity): Promise<UserEntity>;
   updateUser(id: number, user: UserEntity): Promise<UserEntity | null>;
   deleteUser(id: number): Promise<void>;
+  getUserByEmail(email: string): Promise<UserEntity | null>;
 }

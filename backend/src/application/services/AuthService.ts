@@ -2,13 +2,13 @@
 import { IAuthService } from "../interfaces/IAuthService";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { UserService } from "./UserService";
 import createHttpError from "http-errors";
 import envVariables from "../../config/envVariables";
 import { CreateUserDto } from "../dtos/user/CreateUserDto";
+import { IUserService } from "../interfaces/IUserService";
 
 export class AuthService implements IAuthService {
-  constructor(private userService: UserService) {}
+  constructor(private userService: IUserService) {}
 
   async signUp(dto: CreateUserDto): Promise<any> {
     if (!dto.username) {
