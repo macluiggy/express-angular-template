@@ -1,14 +1,15 @@
 // src/infrastructure/controllers/AuthController.ts
 import { NextFunction, Request, Response } from "express";
 import { AuthService } from "../../application/services/AuthService";
+import { CreateUserDto } from "../../application/dtos/user/CreateUserDto";
 
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   async signUp(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { email, password } = req.body;
-      const result = await this.authService.signUp({ email, password });
+      const createUserDto: CreateUserDto = req.body;
+      const result = await this.authService.signUp(createUserDto);
       res.success({
         message: "User created successfully",
         data: result,

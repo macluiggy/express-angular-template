@@ -1,29 +1,26 @@
 // src/application/services/AuthService.ts
-import { IAuthService } from '../interfaces/IAuthService';
-import * as bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { UserService } from './UserService';
-import createHttpError from 'http-errors';
-import envVariables from '../../config/envVariables';
+import { IAuthService } from "../interfaces/IAuthService";
+import * as bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { UserService } from "./UserService";
+import createHttpError from "http-errors";
+import envVariables from "../../config/envVariables";
+import { CreateUserDto } from "../dtos/user/CreateUserDto";
 
 export class AuthService implements IAuthService {
-  constructor( private userService: UserService) {}
+  constructor(private userService: UserService) {}
 
-  async signUp(
-    {
-      email,
-      password,
-      username = email,
-      firstName = email.split('@')[0],
-    }: {
-      email: string;
-      password: string;
-      username?: string;
-      firstName?: string;
+  async signUp(dto: CreateUserDto): Promise<any> {
+    if (!dto.username) {
+      dto.username = dto.email;
     }
-  ): Promise<any> {
+    if (!dto.firstName) {
+      dto.firstName = dto.email.split("@")[0];
+    }
+    const { password } = dto;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await this.userService.createUser({ email, password: hashedPassword, username, firstName });
+    dto = { ...dto, password: hashedPassword };
+    const user = await this.userService.createUser(dto);
     const accessToken = this.generateToken(user);
     return { user, accessToken };
   }
@@ -31,22 +28,22 @@ export class AuthService implements IAuthService {
   async login(email: string, password: string): Promise<any> {
     const user = await this.userService.getUserByEmail(email);
     if (!user) {
-      throw new createHttpError.NotFound('User not found');
+      throw new createHttpError.NotFound("User not found");
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-      throw new createHttpError.Unauthorized('Invalid password');
+      throw new createHttpError.Unauthorized("Invalid password");
     }
 
     const accessToken = this.generateToken(user);
-    const result = { user,  accessToken };
-    
+    const result = { user, accessToken };
+
     return result;
   }
 
   private generateToken(user: any): string {
     const payload = { id: user.id, email: user.email };
-    return jwt.sign(payload, envVariables.jwtSecret, { expiresIn: '1h' });
+    return jwt.sign(payload, envVariables.jwtSecret, { expiresIn: "100D" });
   }
 }

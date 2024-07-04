@@ -6,6 +6,7 @@ import { UserController } from "../controllers/UserController";
 import passport from "../middleware/passport";
 import { validationMiddleware } from "../middleware/validationMiddleware";
 import { CreateUserDto } from "../../application/dtos/user/CreateUserDto";
+import { UpdateUserDto } from "../../application/dtos/user/UpdateUserDto";
 
 const router = Router();
 
@@ -23,11 +24,17 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res, next) => userController.getUserById(req, res, next)
 );
-router.post("/users", validationMiddleware(CreateUserDto), (req, res, next) =>
-  userController.createUser(req, res, next)
+router.post(
+  "/users",
+  passport.authenticate("jwt", { session: false }),
+  validationMiddleware(CreateUserDto),
+  (req, res, next) => userController.createUser(req, res, next)
 );
-router.put("/users/:id", (req, res, next) =>
-  userController.updateUser(req, res, next)
+router.put(
+  "/users/:id",
+  passport.authenticate("jwt", { session: false }),
+  validationMiddleware(UpdateUserDto),
+  (req, res, next) => userController.updateUser(req, res, next)
 );
 router.delete("/users/:id", (req, res, next) =>
   userController.deleteUser(req, res, next)
