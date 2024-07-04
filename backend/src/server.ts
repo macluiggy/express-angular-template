@@ -24,8 +24,10 @@ app.use(
 app.use(express.json());
 app.use(responseHandler);
 app.use(passport.initialize());
-AppDataSource.initialize()
-  .then(() => {
+(async () => {
+  try {
+    await AppDataSource.initialize();
+
     // add a health check route
     app.get("/health", (req, res) => {
       res.send("Server is up and running");
@@ -39,5 +41,7 @@ AppDataSource.initialize()
     app.listen(3000, () => {
       console.log("Server is running on port 3000");
     });
-  })
-  .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error);
+  }
+})();
