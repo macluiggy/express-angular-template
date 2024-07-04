@@ -36,8 +36,10 @@ router.put(
   validationMiddleware(UpdateUserDto),
   (req, res, next) => userController.updateUser(req, res, next)
 );
-router.delete("/users/:id", (req, res, next) =>
-  userController.deleteUser(req, res, next)
+router.delete(
+  "/users/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => userController.deleteUser(req, res, next)
 );
 
 export default router;
