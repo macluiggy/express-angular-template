@@ -2,6 +2,7 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../database/data-source";
 import { UserEntity } from "../../domain/entities/User";
+import { CreateUserDto } from "../../application/dtos/user/CreateUserDto";
 
 export class UserRepository {
   private userRepository: Repository<UserEntity>;
@@ -18,7 +19,7 @@ export class UserRepository {
     return this.userRepository.findOneBy({ id });
   }
 
-  async save(user: UserEntity): Promise<UserEntity> {
+  async save(user: CreateUserDto): Promise<CreateUserDto> {
     return this.userRepository.save(user);
   }
 

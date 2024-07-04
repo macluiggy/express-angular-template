@@ -2,6 +2,7 @@
 import { IUserService } from '../interfaces/IUserService';
 import { UserEntity } from '../../domain/entities/User';
 import { UserRepository } from '../../infrastructure/repositories/UserRepository';
+import { CreateUserDto } from '../dtos/user/CreateUserDto';
 
 export class UserService implements IUserService {
   constructor(private userRepository: UserRepository) {}
@@ -14,7 +15,7 @@ export class UserService implements IUserService {
     return this.userRepository.findById(id);
   }
 
-  async createUser(user: UserEntity): Promise<UserEntity> {
+  async createUser(user: CreateUserDto): Promise<CreateUserDto> {
     return this.userRepository.save(user);
   }
 
